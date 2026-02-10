@@ -8,12 +8,12 @@ pipeline {
         }
         stage('Compile') {
             steps {
-                sh './gradlew compileJava'
+                sh 'cd calculator && ./gradlew compileJava'
             }
         }
         stage('Unit Tests') {
             steps {
-                sh './gradlew test'
+                sh 'cd calculator && ./gradlew test'
             }
         }
     }
