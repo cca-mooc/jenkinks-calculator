@@ -18,6 +18,42 @@ Tuve que hacer algunas modificaciones para evitar la emulación de amd6 en mi ma
 
 ![Resultado ejercicio 1](exercise1-output.png)
 
+Pipeline:
+```gradle
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Compile') {
+            agent {
+                docker {
+                    image 'eclipse-temurin:11-jdk'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh 'cd calculator && ./gradlew compileJava'
+            }
+        }
+        stage('Unit Tests') {
+            agent {
+                docker {
+                    image 'eclipse-temurin:11-jdk'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh 'cd calculator && ./gradlew test'
+            }
+        }
+    }
+}
+```
+
 ### 2. Modificar la pipeline para que utilice la imagen Docker de Gradle como build runner - OBLIGATORIO
 
 - Utilizar Docker in Docker a la hora de levantar Jenkins para realizar este ejercicio
@@ -27,3 +63,39 @@ Tuve que hacer algunas modificaciones para evitar la emulación de amd6 en mi ma
 #### Resultado
 
 ![Resultado ejercicio 2](exercise2-output.png)
+
+Pipeline:
+```gradle
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Compile') {
+            agent {
+                docker {
+                    image 'gradle:6.6.1-jre14-openj9'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh 'cd calculator && ./gradlew compileJava'
+            }
+        }
+        stage('Unit Tests') {
+            agent {
+                docker {
+                    image 'gradle:6.6.1-jre14-openj9'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh 'cd calculator && ./gradlew test'
+            }
+        }
+    }
+}
+```
