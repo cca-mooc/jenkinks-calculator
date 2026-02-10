@@ -9,7 +9,7 @@ pipeline {
         stage('Compile') {
             agent {
                 docker {
-                    image 'gradle:6.6.1-jre14-openj9'
+                    image 'eclipse-temurin:11-jdk'
                     reuseNode true
                 }
             }
@@ -20,7 +20,7 @@ pipeline {
         stage('Unit Tests') {
             agent {
                 docker {
-                    image 'gradle:6.6.1-jre14-openj9'
+                    image 'eclipse-temurin:11-jdk'
                     reuseNode true
                 }
             }
