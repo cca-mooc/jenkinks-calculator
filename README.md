@@ -4,7 +4,7 @@
 
 ### 1. CI/CD de una Java + Gradle - OBLIGATORIO
 
-En el directorio raíz de este [código fuente](./jenkins-resources), crea un `Jenkinsfile` que contenga una pipeline declarativa con los siguientes stages:
+Crea un `Jenkinsfile` que contenga una pipeline declarativa con los siguientes stages:
 
 * **Checkout**. Descarga de código desde un repositorio remoto, preferentemente utiliza GitHub
 * **Compile**. Compilar el código fuente utilizando `gradlew compileJava`
